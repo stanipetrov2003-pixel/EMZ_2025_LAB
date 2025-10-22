@@ -61,8 +61,8 @@ all: main-build
 main-build: niksuna.elf secondary-outputs
 
 # Tool invocations
-niksuna.elf niksuna.map: $(OBJS) $(USER_OBJS) C:\EMZ_2025\69b\ niki\ ot\ aitos\ i\ stani\niksuna\STM32G474RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "niksuna.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\EMZ_2025\69b niki ot aitos i stani\niksuna\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="niksuna.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+niksuna.elf niksuna.map: $(OBJS) $(USER_OBJS) C:\EMZ_2025\69b\ niki\ ot\ aitos\ i\ stani\EMZ_2025_LAB\niksuna\STM32G474RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "niksuna.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\EMZ_2025\69b niki ot aitos i stani\EMZ_2025_LAB\niksuna\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="niksuna.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

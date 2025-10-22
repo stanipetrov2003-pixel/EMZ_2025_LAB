@@ -91,8 +91,6 @@ int main(void)
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
 
-  /* USER CODE END 2 */
-
 
   /* USER CODE BEGIN BSP */
 
@@ -104,7 +102,7 @@ int main(void)
   {
 
     /* -- Sample board code for User push-button in interrupt mode ---- */
-    if (BspButtonState == BUTTON_PRESSED)
+    if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13)==1)
     {
       /* Update button state */
       //BspButtonState = BUTTON_RELEASED;
@@ -114,22 +112,26 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-  }
+    }
     else if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13)==0)
     {
     	blinkStart = 0;
     }
 
     if (blinkStart)
-          {
-          BSP_LED_Toggle(LED_GREEN);
-          HAL_Delay(5000);
-          /* ..... Perform your action ..... */
-        }
-    else if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4))
+	{
+    	HAL_GPIO_WritePin(migach_GPIO_Port, migach_Pin, GPIO_PIN_SET);
+		HAL_Delay(500);
+		HAL_GPIO_WritePin(migach_GPIO_Port, migach_Pin, GPIO_PIN_RESET);
+		HAL_Delay(500);
+		/* ..... Perform your action ..... */
+	}
+    else
     {
-    	 BSP_LED_Off(LED_GREEN);
+    	HAL_GPIO_WritePin(migach_GPIO_Port, migach_Pin, GPIO_PIN_RESET);
     }
+  }
+
   /* USER CODE END 3 */
 }
 
@@ -197,7 +199,7 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5|GPIO_PIN_8, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, migach_Pin|GPIO_PIN_8, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : PC13 */
   GPIO_InitStruct.Pin = GPIO_PIN_13;
@@ -205,8 +207,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PC5 PC8 */
-  GPIO_InitStruct.Pin = GPIO_PIN_5|GPIO_PIN_8;
+  /*Configure GPIO pins : migach_Pin PC8 */
+  GPIO_InitStruct.Pin = migach_Pin|GPIO_PIN_8;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
